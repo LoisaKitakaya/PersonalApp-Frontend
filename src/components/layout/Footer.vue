@@ -6,6 +6,10 @@
         source code is licensed <a href="#">MIT</a>. Check it out on
         <a href="#">GitHub</a>.
       </p>
+      <p>
+        Powered by <a href="https://bulma.io">Bulma</a> and
+        <a href="https://vuejs.org">Vue.js</a>
+      </p>
     </div>
   </footer>
 </template>

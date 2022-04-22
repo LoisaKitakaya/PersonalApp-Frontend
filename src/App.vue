@@ -69,5 +69,6 @@ body {
   border-left: 1px solid $border-color;
   border-right: 1px solid $border-color;
   background-color: $routers-background;
+  padding: 1rem 0;
 }
 </style>
