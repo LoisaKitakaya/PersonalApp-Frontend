@@ -23,9 +23,13 @@ export default {
 <style lang="scss">
 $border-color: hsl(0, 0%, 71%);
 
+$Courgette: 'Courgette', cursive;
+
 .footer {
-  border: 1px solid $border-color;
+  border-top: 1px solid $border-color;
   border-bottom-left-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
+  padding: 1.5rem !important;
+  font-family: $Courgette;
 }
 </style>

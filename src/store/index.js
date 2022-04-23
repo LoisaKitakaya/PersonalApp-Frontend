@@ -5,13 +5,11 @@ export default createStore({
     isLoading: false,
     isAuthenticated: false,
     token: "",
-    user: {
-      id: 0,
-      username: "",
-    },
     homeIsActive: true,
     todoIsActive: false,
     habitIsActive: false,
+    signupIsActive: false,
+    loginIsActive: false,
   },
   getters: {
   },
@@ -20,13 +18,9 @@ export default createStore({
       if (localStorage.getItem("token")) {
           state.token = localStorage.getItem("token");
           state.isAuthenticated = true;
-          state.user.id = localStorage.getItem("userid");
-          state.user.username = localStorage.getItem("username");
         } else {
           state.token = "";
           state.isAuthenticated = false;
-          state.user.id = 0;
-          state.user.username = "";
         }
     },
 
@@ -44,34 +38,45 @@ export default createStore({
       state.isAuthenticated = false;
     },
 
-    setUser(state, user) {
-      state.user = user;
-      // state.user.id = user.id;
-      // state.user.username = user.username;
-    },
-
     setHomeIsActive(state, status) {
       state.homeIsActive = status;
       state.todoIsActive = false;
       state.habitIsActive = false;
+      state.signupIsActive = false;
+      state.loginIsActive = false;
     },
 
     setTodoIsActive(state, status) {
       state.todoIsActive = status;
       state.homeIsActive = false;
       state.habitIsActive = false;
+      state.signupIsActive = false;
+      state.loginIsActive = false;
     },
 
     setHabitIsActive(state, status) {
       state.habitIsActive = status;
       state.homeIsActive = false;
       state.todoIsActive = false;
-    }
+      state.signupIsActive = false;
+      state.loginIsActive = false;
+    },
 
-    // removeUser(state, user) {
-    //   state.user.id = 0;
-    //   state.user.username = "";
-    // },
+    setSignupIsActive(state, status) {
+      state.signupIsActive = status;
+      state.loginIsActive = false;
+      state.habitIsActive = false;
+      state.homeIsActive = false;
+      state.todoIsActive = false;
+    },
+
+    setLoginIsActive(state, status) {
+      state.loginIsActive = status;
+      state.signupIsActive = false;
+      state.habitIsActive = false;
+      state.homeIsActive = false;
+      state.todoIsActive = false;
+    },
 
   },
   actions: {

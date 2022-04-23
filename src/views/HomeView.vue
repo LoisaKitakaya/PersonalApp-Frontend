@@ -10,7 +10,9 @@
       </p>
       <br />
       <p>
-        <a href="#" class="is-underlined has-text-link">Learn more</a>
+        <router-link to="/about" class="is-underlined has-text-link"
+          >Learn more</router-link
+        >
       </p>
     </div>
     <!-- intro -->
@@ -28,7 +30,12 @@
         </p>
         <br />
         <p class="get-started">
-          <a href="#" class="button is-primary">Get started</a>
+          <router-link
+            to="/todo"
+            @click="todoChangeActive"
+            class="button is-primary"
+            >Get started</router-link
+          >
         </p>
       </div>
     </div>
@@ -45,7 +52,12 @@
         </p>
         <br />
         <p class="get-started">
-          <a href="#" class="button is-info">Get started</a>
+          <router-link
+            to="/habit"
+            @click="habitChangeActive"
+            class="button is-info"
+            >Get started</router-link
+          >
         </p>
       </div>
       <div class="habit-image">
@@ -76,7 +88,12 @@
         </p>
         <br />
         <p class="get-started">
-          <a href="#" class="button is-danger">Get started</a>
+          <router-link
+            to="/habit"
+            @click="habitChangeActive"
+            class="button is-danger"
+            >Get started</router-link
+          >
         </p>
       </div>
     </div>
@@ -89,7 +106,15 @@
 
 export default {
   name: "HomeView",
-  components: {},
+  methods: {
+    todoChangeActive() {
+      this.$store.commit("setTodoIsActive", true);
+    },
+
+    habitChangeActive() {
+      this.$store.commit("setHabitIsActive", true);
+    },
+  },
 };
 </script>
 
@@ -116,6 +141,23 @@ export default {
   margin: auto;
 }
 
+.todo-caption,
+.visualization-caption {
+  margin-left: 1rem;
+}
+
+.habit-caption {
+  margin-right: 1rem;
+}
+
+.todo-image,
+.visualization-image {
+  margin-right: 1rem;
+}
+
+.habit-image {
+  margin-left: 1rem;
+}
 .get-started {
   text-align: center;
 }
