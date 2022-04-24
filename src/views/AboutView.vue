@@ -79,7 +79,7 @@
       </p>
     </div>
   </div>
-  <!-- visualization section -->s
+  <!-- visualization section -->
 </template>
 
 <script>

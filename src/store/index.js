@@ -6,22 +6,21 @@ export default createStore({
     isAuthenticated: false,
     token: "",
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
     initializeStore(state) {
       if (localStorage.getItem("token")) {
-          state.token = localStorage.getItem("token");
-          state.isAuthenticated = true;
-        } else {
-          state.token = "";
-          state.isAuthenticated = false;
-        }
+        state.token = localStorage.getItem("token");
+        state.isAuthenticated = true;
+      } else {
+        state.token = "";
+        state.isAuthenticated = false;
+      }
     },
 
     setIsLoading(state, status) {
-        state.isLoading = status;
-      },
+      state.isLoading = status;
+    },
 
     setToken(state, token) {
       state.token = token;
@@ -29,13 +28,11 @@ export default createStore({
     },
 
     removeToken(state, token) {
+      localStorage.removeItem("token");
       state.token = "";
       state.isAuthenticated = false;
     },
-
   },
-  actions: {
-  },
-  modules: {
-  },
+  actions: {},
+  modules: {},
 });
