@@ -5,9 +5,30 @@
       <p class="is-size-4">Todo App</p>
       <hr />
       <ul>
-        <li class="tag-link"><a href="#">All</a></li>
-        <li class="tag-link"><a href="#">Incomplete</a></li>
-        <li class="tag-link"><a href="#">Complete</a></li>
+        <li class="tag-link">
+          <a href="#" @click="getTodoList" v-if="$store.state.isAuthenticated"
+            >All</a
+          >
+          <a href="#" v-else>All</a>
+        </li>
+        <li class="tag-link">
+          <a
+            href="#"
+            @click="filterComplete"
+            v-if="$store.state.isAuthenticated"
+            >Complete</a
+          >
+          <a href="#" v-else>Complete</a>
+        </li>
+        <li class="tag-link">
+          <a
+            href="#"
+            @click="filterIncomplete"
+            v-if="$store.state.isAuthenticated"
+            >Incomplete</a
+          >
+          <a href="#" v-else>Incomplete</a>
+        </li>
       </ul>
       <br />
       <ul>
@@ -16,35 +37,73 @@
             href="#"
             @click="openModal"
             class="button has-text-dark is-success is-fullwidth"
+            v-if="$store.state.isAuthenticated"
+            >Create todo</a
+          >
+          <a
+            href="#"
+            class="button has-text-dark is-success is-fullwidth"
+            v-else
             >Create todo</a
           >
         </li>
+        <hr />
         <li class="menu-link">
           <a
             href="#"
             @click="logout"
             class="button has-text-dark is-warning is-fullwidth"
+            v-if="$store.state.isAuthenticated"
+            >Logout</a
+          >
+          <a
+            href="#"
+            class="button has-text-dark is-warning is-fullwidth"
+            v-else
             >Logout</a
           >
         </li>
       </ul>
     </div>
-    <div class="app-screen">
+    <!-- app screen -->
+    <div class="app-screen" v-if="$store.state.isAuthenticated">
       <!--  -->
-      <!--  -->
-      <div class="card app-card" v-for="task in tasks" v-bind:key="task.id">
-        <header class="card-header">
-          <p class="card-header-title">{{ task.title }}</p>
-        </header>
-        <div class="card-content">
-          <div class="content">
-            {{ task.details }}
+      <div v-if="tasks.length">
+        <!--  -->
+        <div v-for="task in tasks" v-bind:key="task.id" class="card app-card">
+          <header class="card-header">
+            <p class="card-header-title">
+              {{ task.title }}
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <p>{{ task.details }} | <a href="#">View task</a></p>
+              <p class="has-text-link">#{{ task.tags }}</p>
+            </div>
           </div>
         </div>
+        <!--  -->
+      </div>
+      <div class="has-text-centered" v-else>
+        <p class="title">No tasks yet.</p>
+        <p class="is-size-4">
+          Click the 'Create todo' button to add a new task.
+        </p>
       </div>
       <!--  -->
-      <!--  -->
     </div>
+    <!-- app screen -->
+
+    <!-- app screen not authenticated -->
+    <div class="app-screen-not-authenticated has-text-centered" v-else>
+      <p class="title is-underlined">Not Authenticated</p>
+      <p class="is-size-4">
+        Please <strong><router-link to="/login">login</router-link></strong> to
+        view your todo list.
+      </p>
+    </div>
+    <!-- app screen not authenticated -->
   </div>
 
   <!-- modal -->
@@ -112,27 +171,56 @@ export default {
       details: "",
       tags: "",
       tasks: [],
-      hasChanged: false,
     };
   },
   mounted() {
     this.getTodoList();
   },
   methods: {
+    async filterComplete() {
+      this.$store.commit("setIsLoading", true);
+
+      await axios
+        .get("/todo-api/filter-complete/")
+        .then((response) => {
+          this.tasks = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      this.$store.commit("setIsLoading", false);
+    },
+
+    async filterIncomplete() {
+      this.$store.commit("setIsLoading", true);
+
+      await axios
+        .get("/todo-api/filter-incomplete/")
+        .then((response) => {
+          this.tasks = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      this.$store.commit("setIsLoading", false);
+    },
+
     async getTodoList() {
       this.$store.commit("setIsLoading", true);
 
       await axios
         .get("/todo-api/todo/")
         .then((response) => {
+          this.tasks = response.data;
           console.log(response.data);
-          this.task = response.data;
         })
         .catch((error) => {
           console.log(error);
         });
-
-      this.hasChanged = true;
 
       this.$store.commit("setIsLoading", false);
     },
@@ -170,6 +258,16 @@ export default {
 
       const el = document.getElementById("todo-modal");
       el.classList.remove("is-active");
+
+      await axios
+        .get("/todo-api/todo/")
+        .then((response) => {
+          this.tasks = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
       this.$store.commit("setIsLoading", false);
     },
@@ -213,15 +311,6 @@ export default {
     closeModal() {
       const el = document.getElementById("todo-modal");
       el.classList.remove("is-active");
-    },
-  },
-  watch: {
-    tasks: () => {
-      if (this.hasChanged === true) {
-        this.getTodoList();
-        this.hasChanged = false;
-        console.log("Watcher has seen.");
-      }
     },
   },
 };

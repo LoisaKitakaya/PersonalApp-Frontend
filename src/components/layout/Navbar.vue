@@ -1,36 +1,23 @@
 <template>
   <div class="tabs is-centered has-background-primary-light">
     <ul>
-      <li v-bind:class="{ 'is-active': $store.state.homeIsActive }">
-        <router-link to="/" @click="homeChangeActive" class="is-size-5"
-          >Home</router-link
-        >
+      <li>
+        <router-link to="/" class="is-size-5">Home</router-link>
       </li>
-      <li v-bind:class="{ 'is-active': $store.state.todoIsActive }">
-        <router-link to="/todo" @click="todoChangeActive" class="is-size-5"
-          >To-do</router-link
-        >
+      <li>
+        <router-link to="/todo" class="is-size-5">To-do</router-link>
       </li>
-      <li v-bind:class="{ 'is-active': $store.state.habitIsActive }">
-        <router-link to="/habit" @click="habitChangeActive" class="is-size-5"
-          >Habit</router-link
-        >
+      <li>
+        <router-link to="/habit" class="is-size-5">Habit</router-link>
       </li>
-      <li
-        v-bind:class="{ 'is-active': $store.state.signupIsActive }"
-        v-if="!$store.state.isAuthenticated"
-      >
-        <router-link to="/signup" @click="signupChangeActive" class="is-size-5"
-          >Signup</router-link
-        >
+      <li>
+        <router-link to="/about" class="is-size-5">About</router-link>
       </li>
-      <li
-        v-bind:class="{ 'is-active': $store.state.loginIsActive }"
-        v-if="!$store.state.isAuthenticated"
-      >
-        <router-link to="/login" @click="loginChangeActive" class="is-size-5"
-          >Login</router-link
-        >
+      <li v-if="!$store.state.isAuthenticated">
+        <router-link to="/signup" class="is-size-5">Signup</router-link>
+      </li>
+      <li v-if="!$store.state.isAuthenticated">
+        <router-link to="/login" class="is-size-5">Login</router-link>
       </li>
     </ul>
   </div>
@@ -39,26 +26,6 @@
 <script>
 export default {
   name: "Navbar",
-  methods: {
-    homeChangeActive() {
-      this.$store.commit("setHomeIsActive", true);
-    },
-
-    todoChangeActive() {
-      this.$store.commit("setTodoIsActive", true);
-    },
-
-    habitChangeActive() {
-      this.$store.commit("setHabitIsActive", true);
-    },
-    signupChangeActive() {
-      this.$store.commit("setSignupIsActive", true);
-    },
-
-    loginChangeActive() {
-      this.$store.commit("setLoginIsActive", true);
-    },
-  },
 };
 </script>
 

@@ -5,11 +5,6 @@ export default createStore({
     isLoading: false,
     isAuthenticated: false,
     token: "",
-    homeIsActive: true,
-    todoIsActive: false,
-    habitIsActive: false,
-    signupIsActive: false,
-    loginIsActive: false,
   },
   getters: {
   },
@@ -36,46 +31,6 @@ export default createStore({
     removeToken(state, token) {
       state.token = "";
       state.isAuthenticated = false;
-    },
-
-    setHomeIsActive(state, status) {
-      state.homeIsActive = status;
-      state.todoIsActive = false;
-      state.habitIsActive = false;
-      state.signupIsActive = false;
-      state.loginIsActive = false;
-    },
-
-    setTodoIsActive(state, status) {
-      state.todoIsActive = status;
-      state.homeIsActive = false;
-      state.habitIsActive = false;
-      state.signupIsActive = false;
-      state.loginIsActive = false;
-    },
-
-    setHabitIsActive(state, status) {
-      state.habitIsActive = status;
-      state.homeIsActive = false;
-      state.todoIsActive = false;
-      state.signupIsActive = false;
-      state.loginIsActive = false;
-    },
-
-    setSignupIsActive(state, status) {
-      state.signupIsActive = status;
-      state.loginIsActive = false;
-      state.habitIsActive = false;
-      state.homeIsActive = false;
-      state.todoIsActive = false;
-    },
-
-    setLoginIsActive(state, status) {
-      state.loginIsActive = status;
-      state.signupIsActive = false;
-      state.habitIsActive = false;
-      state.homeIsActive = false;
-      state.todoIsActive = false;
     },
 
   },
