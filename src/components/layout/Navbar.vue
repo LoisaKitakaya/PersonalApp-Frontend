@@ -1,7 +1,7 @@
 <template>
   <div class="tabs is-centered has-background-primary-light">
     <ul>
-      <li class="is-active">
+      <li>
         <router-link to="/" class="is-size-5">Home</router-link>
       </li>
       <li>

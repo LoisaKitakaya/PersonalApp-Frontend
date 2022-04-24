@@ -2,78 +2,52 @@
   <div class="title has-text-centered">About Personal App</div>
   <!-- todo section -->
   <div class="todo-section">
-    <div class="todo-image">
-      <img src="@/assets/todo-thumbnail.jpg" alt="todo app thumbnail" />
-    </div>
     <div class="todo-caption">
-      <p class="is-size-4">
-        <strong class="has-text-primary is-underlined">Todo App</strong> is a
-        beautifully designed application that lets you create a 'to-do list'
-        that helps you keep track and focus on your activities.
+      <p class="title has-text-centered">
+        <i class="bi bi-clock-history"></i>
       </p>
-      <br />
-      <p class="get-started">
-        <router-link
-          to="/todo"
-          @click="todoChangeActive"
-          class="button is-primary"
+      <p class="is-size-4">
+        Todo App is a beautifully designed application that lets you create a
+        'to-do list' that helps you keep track and focus on your activities.
+        <router-link to="/todo" class="has-text-link-dark"
           >Get started</router-link
         >
       </p>
     </div>
   </div>
   <!-- todo section -->
-  <hr />
+  <br />
+  <br />
   <!-- habit section -->
   <div class="habit-section">
     <div class="habit-caption">
-      <p class="is-size-4">
-        <strong class="has-text-link is-underlined">Habit Tracker App</strong>
-        is a wonderful application if you want to start a new habit and track
-        your progress throughout. It is a good place to start for personal
-        development.
+      <p class="title has-text-centered">
+        <i class="bi bi-calendar2-week"></i>
       </p>
-      <br />
-      <p class="get-started">
-        <router-link
-          to="/habit"
-          @click="habitChangeActive"
-          class="button is-info"
+      <p class="is-size-4">
+        Habit Tracker App is a wonderful application if you want to start a new
+        habit and track your progress. It is a good place to start for personal
+        development.
+        <router-link to="/habit" class="has-text-link-dark"
           >Get started</router-link
         >
       </p>
     </div>
-    <div class="habit-image">
-      <img
-        src="@/assets/habit-thumbnail.jpg"
-        alt="habit tracker app thumbnail"
-      />
-    </div>
   </div>
   <!-- habit section -->
-  <hr />
+  <br />
+  <br />
   <!-- visualization section -->
   <div class="visualization-section">
-    <div class="visualization-image">
-      <img
-        src="@/assets/visualization-thumbnail.jpg"
-        alt="data visualization thumbnail"
-      />
-    </div>
     <div class="visualization-caption">
-      <p class="is-size-4">
-        <strong class="has-text-danger is-underlined"
-          >Data Visualization</strong
-        >
-        is a sub-functionality offered by the habit tracker app, that helps you
-        visualize your data (habit), making it easier to track your progress.
+      <p class="title has-text-centered">
+        <i class="bi bi-graph-up"></i>
       </p>
-      <br />
-      <p class="get-started">
-        <router-link
-          to="/habit"
-          @click="habitChangeActive"
-          class="button is-danger"
+      <p class="is-size-4">
+        Data Visualization is a sub-functionality offered by the habit tracker
+        app, that helps you visualize your data (habit), making it easier to
+        track your progress.
+        <router-link to="/habit" class="has-text-link-dark"
           >Get started</router-link
         >
       </p>
@@ -92,38 +66,19 @@ export default {
 .todo-section,
 .habit-section,
 .visualization-section {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 2rem;
+  width: 70%;
+  margin: auto;
 }
 
 .todo-caption,
 .habit-caption,
 .visualization-caption {
   text-align: justify;
-  width: 90%;
+  width: 50%;
   margin: auto;
 }
 
-.todo-caption,
-.visualization-caption {
-  margin-left: 1rem;
-}
-
-.habit-caption {
-  margin-right: 1rem;
-}
-
-.todo-image,
-.visualization-image {
-  margin-right: 1rem;
-}
-
-.habit-image {
-  margin-left: 1rem;
-}
-.get-started {
-  text-align: center;
+.bi {
+  font-size: 5rem !important;
 }
 </style>

@@ -94,10 +94,10 @@ body {
 }
 
 .router {
-  min-height: 100vh;
+  // min-height: 100vh;
   // background-color: $routers-background;
   padding: 1rem;
-  background-image: url("@/assets/body-background-2.jpg");
+  background-image: url("@/assets/body-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -124,7 +124,7 @@ $card-background-color: hsl(0, 0%, 100%);
   border: 1px solid $border-color;
   border-radius: 0.3rem;
   margin: 0 4rem;
-  animation: bounceIn 850ms;
+  animation: fadeIn 650ms linear 100ms;
 }
 
 .app-menu {

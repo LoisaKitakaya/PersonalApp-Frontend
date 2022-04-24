@@ -16,7 +16,6 @@
       </p>
     </div>
     <!-- intro -->
-    
   </div>
 </template>
 
@@ -41,5 +40,9 @@ export default {
 .intro-text {
   width: 70%;
   margin: auto;
+}
+
+.home {
+  height: 100vh !important;
 }
 </style>
