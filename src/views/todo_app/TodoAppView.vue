@@ -38,13 +38,13 @@
             @click="openModal"
             class="button has-text-dark is-success is-fullwidth"
             v-if="$store.state.isAuthenticated"
-            >Create todo</a
+            >Create task</a
           >
           <a
             href="#"
             class="button has-text-dark is-success is-fullwidth"
             v-else
-            >Create todo</a
+            >Create task</a
           >
         </li>
         <hr />
@@ -72,13 +72,19 @@
         <!--  -->
         <div v-for="task in tasks" v-bind:key="task.id" class="card app-card">
           <header class="card-header">
-            <p class="card-header-title">
+            <p class="card-header-title is-size-5">
               {{ task.title }}
             </p>
           </header>
           <div class="card-content">
             <div class="content">
-              <p>{{ task.details }} | <a href="#">View task</a></p>
+              <p>
+                {{ task.details }} |
+                <router-link
+                  v-bind:to="{ name: 'todo-details', params: { id: task.id } }"
+                  >View task</router-link
+                >
+              </p>
               <p class="has-text-link">#{{ task.tags }}</p>
             </div>
           </div>
@@ -173,7 +179,7 @@ export default {
       tasks: [],
     };
   },
-  mounted() {
+  created() {
     this.getTodoList();
   },
   methods: {
@@ -243,7 +249,7 @@ export default {
 
           toast({
             message: "Task created.",
-            type: "is-success",
+            type: "is-info",
             dismissible: true,
             pauseOnHover: true,
             duration: 3000,
@@ -282,7 +288,7 @@ export default {
 
           toast({
             message: "Logged out.",
-            type: "is-danger",
+            type: "is-success",
             dismissible: true,
             pauseOnHover: true,
             duration: 3000,

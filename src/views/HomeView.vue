@@ -10,7 +10,7 @@
       </p>
       <br />
       <p>
-        <router-link to="/about" class="is-underlined has-text-link"
+        <router-link to="/about" class="is-underlined is-size-5 has-text-link"
           >Learn more</router-link
         >
       </p>
@@ -44,5 +44,6 @@ export default {
 
 .home {
   height: 100vh !important;
+  padding-top: 10rem;
 }
 </style>

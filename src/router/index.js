@@ -1,10 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import TodoAppView from '../views/TodoAppView.vue'
-import HabitTrackerAppView from '../views/HabitTrackerAppView.vue'
-import SignupView from '../views/authentication/SignupView.vue'
-import LoginView from '../views/authentication/LoginView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import store from "@/store";
+import HomeView from "../views/HomeView.vue";
+import AboutView from "../views/AboutView.vue";
+import TodoAppView from "../views/todo_app/TodoAppView.vue";
+import HabitTrackerAppView from "../views/habit_tracker_app/HabitTrackerAppView.vue";
+import SignupView from "../views/authentication/SignupView.vue";
+import LoginView from "../views/authentication/LoginView.vue";
+import TodoAppDetailView from "../views/todo_app/TodoAppDetailView.vue";
 
 const routes = [
   {
@@ -21,6 +23,14 @@ const routes = [
     path: "/todo",
     name: "todo",
     component: TodoAppView,
+  },
+  {
+    path: "/todo/:id",
+    name: "todo-details",
+    component: TodoAppDetailView,
+    meta: {
+      requireLogin: true,
+    },
   },
   {
     path: "/habit",
@@ -41,7 +51,18 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some((record) => record.meta.requireLogin) &&
+    !store.state.isAuthenticated
+  ) {
+    next("/login");
+  } else {
+    next();
+  }
+});
+
+export default router;

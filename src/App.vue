@@ -124,7 +124,6 @@ $card-background-color: hsl(0, 0%, 100%);
   border: 1px solid $border-color;
   border-radius: 0.3rem;
   margin: 0 4rem;
-  animation: fadeIn 650ms linear 100ms;
 }
 
 .app-menu {
@@ -195,6 +194,14 @@ $card-background-color: hsl(0, 0%, 100%);
 .app-card {
   margin-bottom: 1rem;
   opacity: 0.9 !important;
+}
+
+.app-card-detail {
+  margin-top: 8rem;
+}
+
+.app-screen-not-authenticated {
+  padding-top: 10rem;
 }
 
 .card-divider {

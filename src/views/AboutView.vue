@@ -1,4 +1,5 @@
 <template>
+  <br />
   <div class="title has-text-centered">About Personal App</div>
   <!-- todo section -->
   <div class="todo-section">
@@ -9,7 +10,7 @@
       <p class="is-size-4">
         Todo App is a beautifully designed application that lets you create a
         'to-do list' that helps you keep track and focus on your activities.
-        <router-link to="/todo" class="has-text-link-dark"
+        <router-link to="/todo" class="has-text-link-dark is-underlined"
           >Get started</router-link
         >
       </p>
@@ -28,7 +29,7 @@
         Habit Tracker App is a wonderful application if you want to start a new
         habit and track your progress. It is a good place to start for personal
         development.
-        <router-link to="/habit" class="has-text-link-dark"
+        <router-link to="/habit" class="has-text-link-dark is-underlined"
           >Get started</router-link
         >
       </p>
@@ -47,13 +48,14 @@
         Data Visualization is a sub-functionality offered by the habit tracker
         app, that helps you visualize your data (habit), making it easier to
         track your progress.
-        <router-link to="/habit" class="has-text-link-dark"
+        <router-link to="/habit" class="has-text-link-dark is-underlined"
           >Get started</router-link
         >
       </p>
     </div>
   </div>
   <!-- visualization section -->
+  <br />
 </template>
 
 <script>
@@ -73,7 +75,7 @@ export default {
 .todo-caption,
 .habit-caption,
 .visualization-caption {
-  text-align: justify;
+  text-align: center;
   width: 50%;
   margin: auto;
 }
