@@ -197,7 +197,7 @@ $card-background-color: hsl(0, 0%, 100%);
 }
 
 .app-card-detail {
-  margin-top: 8rem;
+  margin-top: 6rem;
 }
 
 .app-screen-not-authenticated {
