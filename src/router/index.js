@@ -5,6 +5,8 @@ import AboutView from "../views/AboutView.vue";
 import TodoAppView from "../views/todo_app/TodoAppView.vue";
 import HabitTrackerAppView from "../views/habit_tracker_app/HabitTrackerAppView.vue";
 import HabitTrackerAppDetailView from "../views/habit_tracker_app/HabitTrackerAppDetailView.vue";
+import HabitTrackerLogsView from "../views/habit_tracker_app/HabitTrackerLogsView.vue";
+import HabitTrackerLogDetailView from '../views/habit_tracker_app/HabitTrackerLogDetailsView.vue';
 import SignupView from "../views/authentication/SignupView.vue";
 import LoginView from "../views/authentication/LoginView.vue";
 import TodoAppDetailView from "../views/todo_app/TodoAppDetailView.vue";
@@ -42,6 +44,16 @@ const routes = [
     path: "/habit/:id",
     name: "habit-details",
     component: HabitTrackerAppDetailView,
+  },
+  {
+    path: "/logs",
+    name: "logs",
+    component: HabitTrackerLogsView,
+  },
+  {
+    path: "/logs/:id",
+    name: "logs-details",
+    component: HabitTrackerLogDetailView,
   },
   {
     path: "/signup",

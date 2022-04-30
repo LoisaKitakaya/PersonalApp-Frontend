@@ -89,7 +89,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head has-background-primary-light">
-        <p class="modal-card-title">New Habit</p>
+        <p class="modal-card-title">Edit Habit</p>
         <button class="delete" @click="closeModal" aria-label="close"></button>
       </header>
       <section class="modal-card-body">

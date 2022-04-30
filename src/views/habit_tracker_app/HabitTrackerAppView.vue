@@ -6,13 +6,15 @@
       <hr />
       <ul>
         <li class="tag-link">
-          <a href="#" @click="getHabits" v-if="$store.state.isAuthenticated"
-            >Habits</a
+          <router-link to="/habit" v-if="$store.state.isAuthenticated"
+            >Habits</router-link
           >
           <a href="#" v-else>Habits</a>
         </li>
         <li class="tag-link">
-          <a href="#" v-if="$store.state.isAuthenticated">Logs</a>
+          <router-link to="/logs" v-if="$store.state.isAuthenticated"
+            >Logs</router-link
+          >
           <a href="#" v-else>Logs</a>
         </li>
       </ul>
