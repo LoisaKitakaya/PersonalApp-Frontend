@@ -12,8 +12,8 @@
           <a href="#" v-else>Habits</a>
         </li>
         <li class="tag-link">
-          <a href="#" v-if="$store.state.isAuthenticated">Charts</a>
-          <a href="#" v-else>Charts</a>
+          <a href="#" v-if="$store.state.isAuthenticated">Logs</a>
+          <a href="#" v-else>Logs</a>
         </li>
       </ul>
       <br />
@@ -73,7 +73,7 @@
                     name: 'habit-details',
                     params: { id: habit.id },
                   }"
-                  >View task</router-link
+                  >View habit</router-link
                 >
               </p>
               <p>Units: {{ habit.units }}</p>

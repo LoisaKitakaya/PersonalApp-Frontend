@@ -2,24 +2,18 @@
   <!-- <p class="subtitle has-text-centered">To-do</p> -->
   <div class="app-window card">
     <div class="app-menu has-background-primary-light">
-      <p class="is-size-4">Todo App</p>
+      <p class="is-size-4">Habit Tracker</p>
       <hr />
       <ul>
         <li class="tag-link">
-          <a href="#">All</a>
-        </li>
-        <li class="tag-link">
-          <a href="#">Complete</a>
-        </li>
-        <li class="tag-link">
-          <a href="#">Incomplete</a>
+          <a href="#">Habits</a>
         </li>
       </ul>
       <br />
       <ul>
         <li class="menu-link">
           <router-link
-            to="/todo"
+            to="/habit"
             class="button has-text-dark is-fullwidth"
             v-if="$store.state.isAuthenticated"
             >Back</router-link
@@ -49,21 +43,23 @@
       <div class="card app-card app-card-detail">
         <header class="card-header">
           <p class="card-header-title is-size-5">
-            {{ task.title }}
+            {{ log.title }}
           </p>
         </header>
         <div class="card-content">
           <div class="content">
-            <p>{{ task.details }}</p>
-            <p class="has-text-link">#{{ task.tags }}</p>
+            <p>Action: {{ log.action }}</p>
+            <p>Units: {{ log.units }}</p>
+            <p>Goal: {{ log.goal }}</p>
           </div>
         </div>
         <footer class="card-footer">
           <a
             href="#"
-            @click="isCompleted"
-            class="card-footer-item has-text-dark has-background-success-light"
-            >Completed</a
+            @click="openModal"
+            class="card-footer-item has-text-dark has-background-primary-light"
+            v-if="$store.state.isAuthenticated"
+            >Edit</a
           >
           <a
             href="#"
@@ -87,6 +83,65 @@
     </div>
     <!-- app screen not authenticated -->
   </div>
+
+  <!-- modal -->
+  <div class="modal" id="todo-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head has-background-primary-light">
+        <p class="modal-card-title">New Habit</p>
+        <button class="delete" @click="closeModal" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <form method="post">
+          <div class="field">
+            <label for="title" class="label">Title</label>
+            <div class="control">
+              <input
+                type="text"
+                v-model="title"
+                placeholder="habit"
+                class="input"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="action" class="label">Action</label>
+            <div class="control">
+              <input
+                type="text"
+                v-model="action"
+                placeholder="action"
+                class="input"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="units" class="label">Units</label>
+            <div class="control">
+              <input
+                type="text"
+                v-model="units"
+                placeholder="e.g. litres"
+                class="input"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="goal" class="label">Goal</label>
+            <div class="control">
+              <input type="number" v-model="goal" class="input" />
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot has-background-primary-light">
+        <button class="button is-success" @click="edit">Update</button>
+        <button class="button" @click="closeModal">Cancel</button>
+      </footer>
+    </div>
+  </div>
+  <!-- modal -->
 </template>
 
 <script>
@@ -94,35 +149,49 @@ import axios from "axios";
 import { toast } from "bulma-toast";
 
 export default {
-  name: "TodoAppView",
+  name: "HabitTrackerAppDetailView",
   data() {
     return {
       title: "",
-      details: "",
-      tags: "",
-      task: [],
+      action: "",
+      units: "",
+      goal: 0,
+      log: [],
     };
   },
   created() {
-    this.getTodoListItem();
+    this.getHabitLog();
   },
   methods: {
-    async isCompleted() {
+    openModal() {
+      const el = document.getElementById("todo-modal");
+      el.classList.add("is-active");
+    },
+
+    closeModal() {
+      const el = document.getElementById("todo-modal");
+      el.classList.remove("is-active");
+    },
+
+    async edit() {
       this.$store.commit("setIsLoading", true);
 
       const update = {
-        completed: true,
+        title: this.title,
+        action: this.action,
+        units: this.units,
+        goal: this.goal,
       };
 
-      const taskId = this.$route.params.id;
+      const logId = this.$route.params.id;
 
       await axios
-        .patch(`/todo-api/todo/${taskId}/`, update)
+        .patch(`/tracker-api/habit/${logId}/`, update)
         .then((response) => {
           console.log(response.data);
 
           toast({
-            message: "Task marked as completed.",
+            message: "Habit has been updated.",
             type: "is-info",
             dismissible: true,
             pauseOnHover: true,
@@ -130,7 +199,20 @@ export default {
             position: "bottom-right",
           });
 
-          this.$router.push("/todo");
+          this.$router.push("/habit");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      const el = document.getElementById("todo-modal");
+      el.classList.remove("is-active");
+
+      await axios
+        .get(`/tracker-api/habit/${logId}`)
+        .then((response) => {
+          this.log = response.data;
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -142,15 +224,15 @@ export default {
     async deleteTask() {
       this.$store.commit("setIsLoading", true);
 
-      const taskId = this.$route.params.id;
+      const logId = this.$route.params.id;
 
       await axios
-        .delete(`/todo-api/todo/${taskId}/`)
+        .delete(`/tracker-api/habit/${logId}/`)
         .then((response) => {
           console.log(response.data);
 
           toast({
-            message: "Task has been deleted.",
+            message: "Habit has been deleted.",
             type: "is-danger",
             dismissible: true,
             pauseOnHover: true,
@@ -158,7 +240,7 @@ export default {
             position: "bottom-right",
           });
 
-          this.$router.push("/todo");
+          this.$router.push("/habit");
         })
         .catch((error) => {
           console.log(error);
@@ -167,15 +249,15 @@ export default {
       this.$store.commit("setIsLoading", false);
     },
 
-    async getTodoListItem() {
+    async getHabitLog() {
       this.$store.commit("setIsLoading", true);
 
-      const taskId = this.$route.params.id;
+      const logId = this.$route.params.id;
 
       await axios
-        .get(`/todo-api/todo/${taskId}`)
+        .get(`/tracker-api/habit/${logId}`)
         .then((response) => {
-          this.task = response.data;
+          this.log = response.data;
           console.log(response.data);
         })
         .catch((error) => {
