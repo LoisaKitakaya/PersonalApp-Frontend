@@ -10,7 +10,9 @@
       <p class="is-size-4">
         Todo App is a beautifully designed application that lets you create a
         'to-do list' that helps you keep track and focus on your activities.
-        <router-link to="/todo" class="has-text-link-dark is-underlined"
+        <router-link
+          to="/todo"
+          class="has-text-link-dark is-underlined todo-redirect"
           >Get started</router-link
         >
       </p>
@@ -29,7 +31,9 @@
         Habit Tracker App is a wonderful application if you want to start a new
         habit and track your progress. It is a good place to start for personal
         development.
-        <router-link to="/habit" class="has-text-link-dark is-underlined"
+        <router-link
+          to="/habit"
+          class="has-text-link-dark is-underlined habit-redirect"
           >Get started</router-link
         >
       </p>
@@ -48,7 +52,9 @@
         Data Visualization is a sub-functionality offered by the habit tracker
         app, that helps you visualize your data (habit), making it easier to
         track your progress.
-        <router-link to="/habit" class="has-text-link-dark is-underlined"
+        <router-link
+          to="/habit"
+          class="has-text-link-dark is-underlined habit-redirect"
           >Get started</router-link
         >
       </p>
@@ -59,8 +65,44 @@
 </template>
 
 <script>
+import $ from "jquery";
+
 export default {
   name: "AboutView",
+  created() {
+    $(document).ready(() => {
+      //
+      let todoRedirect = $(".todo-redirect");
+      let habitRedirect = $(".habit-redirect");
+
+      //
+      let homeTab = $("#home");
+      let todoTab = $("#todo");
+      let habitTab = $("#habit");
+      let aboutTab = $("#about");
+      let signupTab = $("#signup");
+      let loginTab = $("#login");
+
+      //
+      todoRedirect.click(() => {
+        homeTab.removeClass("is-active");
+        todoTab.addClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.removeClass("is-active");
+      });
+
+      habitRedirect.click(() => {
+        homeTab.removeClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.addClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.removeClass("is-active");
+      });
+    });
+  },
 };
 </script>
 

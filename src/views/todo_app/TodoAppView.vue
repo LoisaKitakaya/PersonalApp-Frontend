@@ -111,8 +111,13 @@
     <div class="app-screen-not-authenticated has-text-centered" v-else>
       <p class="title is-underlined">Not Authenticated</p>
       <p class="is-size-4">
-        Please <strong><router-link to="/login">login</router-link></strong> to
-        view your todo list.
+        Please
+        <strong
+          ><router-link to="/login" class="login-redirect"
+            >login</router-link
+          ></strong
+        >
+        to view your todo list.
       </p>
     </div>
     <!-- app screen not authenticated -->
@@ -199,6 +204,27 @@ export default {
       let allTab = $("#all");
       let completeTab = $("#complete");
       let incompleteTab = $("#incomplete");
+
+      //
+      let loginRedirect = $(".login-redirect");
+
+      // 
+      let homeTab = $("#home");
+      let todoTab = $("#todo");
+      let habitTab = $("#habit");
+      let aboutTab = $("#about");
+      let signupTab = $("#signup");
+      let loginTab = $("#login");
+
+      //
+      loginRedirect.click(() => {
+        homeTab.removeClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.addClass("is-active");
+      });
 
       //
       todoAll.click(() => {

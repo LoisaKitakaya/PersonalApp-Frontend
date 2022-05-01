@@ -1,7 +1,10 @@
 <template>
   <div class="section">
     <h1 class="title has-text-centered">Login</h1>
-    <form class="box auth-form has-background-primary-light" @submit.prevent="submitForm">
+    <form
+      class="box auth-form has-background-primary-light"
+      @submit.prevent="submitForm"
+    >
       <div class="field">
         <label for="email" class="label">Email</label>
         <div class="control">
@@ -41,8 +44,10 @@
     <br />
     <p class="has-text-centered">
       Don't have an account? Click
-      <router-link to="/signup" class="has-text-link">here</router-link> to
-      create one.
+      <router-link to="/signup" class="has-text-link signup-redirect"
+        >here</router-link
+      >
+      to create one.
     </p>
   </div>
 </template>
@@ -50,6 +55,7 @@
 <script>
 import axios from "axios";
 import { toast } from "bulma-toast";
+import $ from "jquery";
 
 export default {
   name: "LoginView",
@@ -122,6 +128,30 @@ export default {
 
       this.$store.commit("setIsLoading", false);
     },
+  },
+  created() {
+    $(document).ready(() => {
+      //
+      let loginRedirect = $(".signup-redirect");
+
+      //
+      let homeTab = $("#home");
+      let todoTab = $("#todo");
+      let habitTab = $("#habit");
+      let aboutTab = $("#about");
+      let signupTab = $("#signup");
+      let loginTab = $("#login");
+
+      //
+      loginRedirect.click(() => {
+        homeTab.removeClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.addClass("is-active");
+        loginTab.removeClass("is-active");
+      });
+    });
   },
 };
 </script>

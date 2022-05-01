@@ -99,8 +99,13 @@
     <div class="app-screen-not-authenticated has-text-centered" v-else>
       <p class="title is-underlined">Not Authenticated</p>
       <p class="is-size-4">
-        Please <strong><router-link to="/login">login</router-link></strong> to
-        track your habits.
+        Please
+        <strong
+          ><router-link to="/login" class="login-redirect"
+            >login</router-link
+          ></strong
+        >
+        to track your habits.
       </p>
     </div>
     <!-- app screen not authenticated -->
@@ -171,6 +176,7 @@
 <script>
 import axios from "axios";
 import { toast } from "bulma-toast";
+import $ from "jquery";
 
 export default {
   name: "HabitTrackerAppView",
@@ -185,6 +191,29 @@ export default {
   },
   created() {
     this.getHabits();
+
+    $(document).ready(() => {
+      //
+      let loginRedirect = $(".login-redirect");
+
+      //
+      let homeTab = $("#home");
+      let todoTab = $("#todo");
+      let habitTab = $("#habit");
+      let aboutTab = $("#about");
+      let signupTab = $("#signup");
+      let loginTab = $("#login");
+
+      //
+      loginRedirect.click(() => {
+        homeTab.removeClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.addClass("is-active");
+      });
+    });
   },
   methods: {
     async getHabits() {

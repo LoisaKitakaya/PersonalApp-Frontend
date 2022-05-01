@@ -10,7 +10,9 @@
       </p>
       <br />
       <p>
-        <router-link to="/about" class="is-underlined is-size-5 has-text-link"
+        <router-link
+          to="/about"
+          class="is-underlined is-size-5 has-text-link about-redirect"
           >Learn more</router-link
         >
       </p>
@@ -21,6 +23,7 @@
 
 <script>
 // @ is an alias to /src
+import $ from "jquery";
 
 export default {
   name: "HomeView",
@@ -32,6 +35,30 @@ export default {
     habitChangeActive() {
       this.$store.commit("setHabitIsActive", true);
     },
+  },
+  created() {
+    $(document).ready(() => {
+      //
+      let aboutRedirect = $(".about-redirect");
+
+      //
+      let homeTab = $("#home");
+      let todoTab = $("#todo");
+      let habitTab = $("#habit");
+      let aboutTab = $("#about");
+      let signupTab = $("#signup");
+      let loginTab = $("#login");
+
+      //
+      aboutRedirect.click(() => {
+        homeTab.removeClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.addClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.removeClass("is-active");
+      });
+    });
   },
 };
 </script>

@@ -100,8 +100,13 @@
     <div class="app-screen-not-authenticated has-text-centered" v-else>
       <p class="title is-underlined">Not Authenticated</p>
       <p class="is-size-4">
-        Please <strong><router-link to="/login">login</router-link></strong> to
-        track your habits.
+        Please
+        <strong
+          ><router-link to="/login" class="login-redirect"
+            >login</router-link
+          ></strong
+        >
+        to track your habits.
       </p>
     </div>
     <!-- app screen not authenticated -->
