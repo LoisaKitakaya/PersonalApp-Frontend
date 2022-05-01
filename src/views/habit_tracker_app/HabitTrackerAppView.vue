@@ -5,7 +5,7 @@
       <p class="is-size-4">Habit Tracker</p>
       <hr />
       <ul>
-        <li class="tag-link">
+        <li class="tag-link active">
           <router-link to="/habit" v-if="$store.state.isAuthenticated"
             >Habits</router-link
           >

@@ -5,24 +5,30 @@
       <p class="is-size-4">Todo App</p>
       <hr />
       <ul>
-        <li class="tag-link">
-          <a href="#" @click="getTodoList" v-if="$store.state.isAuthenticated"
+        <li class="tag-link active" id="all">
+          <a
+            href="#"
+            id="todo-all"
+            @click="getTodoList"
+            v-if="$store.state.isAuthenticated"
             >All</a
           >
           <a href="#" v-else>All</a>
         </li>
-        <li class="tag-link">
+        <li class="tag-link" id="complete">
           <a
             href="#"
+            id="todo-complete"
             @click="filterComplete"
             v-if="$store.state.isAuthenticated"
             >Complete</a
           >
           <a href="#" v-else>Complete</a>
         </li>
-        <li class="tag-link">
+        <li class="tag-link" id="incomplete">
           <a
             href="#"
+            id="todo-incomplete"
             @click="filterIncomplete"
             v-if="$store.state.isAuthenticated"
             >Incomplete</a
@@ -168,6 +174,7 @@
 <script>
 import axios from "axios";
 import { toast } from "bulma-toast";
+import $ from "jquery";
 
 export default {
   name: "TodoAppView",
@@ -181,6 +188,37 @@ export default {
   },
   created() {
     this.getTodoList();
+
+    $(document).ready(() => {
+      //
+      let todoAll = $("#todo-all");
+      let todoComplete = $("#todo-complete");
+      let todoIncomplete = $("#todo-incomplete");
+
+      //
+      let allTab = $("#all");
+      let completeTab = $("#complete");
+      let incompleteTab = $("#incomplete");
+
+      //
+      todoAll.click(() => {
+        allTab.addClass("active");
+        completeTab.removeClass("active");
+        incompleteTab.removeClass("active");
+      });
+
+      todoComplete.click(() => {
+        allTab.removeClass("active");
+        completeTab.addClass("active");
+        incompleteTab.removeClass("active");
+      });
+
+      todoIncomplete.click(() => {
+        allTab.removeClass("active");
+        completeTab.removeClass("active");
+        incompleteTab.addClass("active");
+      });
+    });
   },
   methods: {
     async filterComplete() {

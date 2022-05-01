@@ -5,14 +5,17 @@
       <p class="is-size-4">Habit Logs</p>
       <hr />
       <ul>
-        <li class="tag-link">
-          <router-link to="/habit" v-if="$store.state.isAuthenticated"
+        <li class="tag-link" id="h-tab">
+          <router-link
+            to="/habit"
+            id="h-btn"
+            v-if="$store.state.isAuthenticated"
             >Habits</router-link
           >
           <a href="#" v-else>Habits</a>
         </li>
-        <li class="tag-link">
-          <router-link to="/logs" v-if="$store.state.isAuthenticated"
+        <li class="tag-link active" id="l-tab">
+          <router-link to="/logs" id="h-btn" v-if="$store.state.isAuthenticated"
             >Logs</router-link
           >
           <a href="#" v-else>Logs</a>
@@ -60,22 +63,24 @@
         <!--  -->
         <div v-for="log in logs" v-bind:key="log.id" class="card app-card">
           <header class="card-header">
-            <p class="card-header-title is-size-5">{{ log.title }}</p>
+            <p class="card-header-title is-size-5">
+              {{ log.habit }}
+            </p>
           </header>
           <div class="card-content">
             <div class="content">
               <p>
-                Action: {{ log.action }} |
+                Achievement: {{ log.achievement }} |
                 <router-link
                   v-bind:to="{
-                    name: 'habit-details',
+                    name: 'logs-details',
                     params: { id: log.id },
                   }"
-                  >View habit</router-link
+                  >View habit log</router-link
                 >
               </p>
-              <p>Units: {{ log.units }}</p>
-              <p>Goal: {{ log.goal }}</p>
+              <p>Created at: {{ log.created_at }}</p>
+              <p>Updated at: {{ log.updated_at }}</p>
             </div>
           </div>
         </div>
@@ -113,13 +118,13 @@
       <section class="modal-card-body">
         <form method="post">
           <div class="field">
-              <label class="label">Habit</label>
+            <label class="label">Habit</label>
             <div class="select is-fullwidth">
               <select v-model="habit">
                 <option
                   v-for="habit in habitList"
                   :key="habit.id"
-                  value="{{habit.id}}"
+                  :value="habit.id"
                 >
                   {{ habit.title }}
                 </option>
@@ -135,9 +140,7 @@
         </form>
       </section>
       <footer class="modal-card-foot has-background-primary-light">
-        <button class="button is-success" @click="createNewHabit">
-          Create
-        </button>
+        <button class="button is-success" @click="createNewLog">Create</button>
         <button class="button" @click="closeModal">Cancel</button>
       </footer>
     </div>
@@ -161,6 +164,7 @@ export default {
   },
   created() {
     this.getLogs();
+
     this.getHabits();
   },
   methods: {
@@ -196,7 +200,7 @@ export default {
       this.$store.commit("setIsLoading", false);
     },
 
-    async createNewHabit(event) {
+    async createNewLog(event) {
       event.preventDefault();
 
       this.$store.commit("setIsLoading", true);
@@ -206,13 +210,15 @@ export default {
         achievement: this.achievement,
       };
 
+      console.log(log);
+
       await axios
         .post("/tracker-api/habit-log/", log)
         .then((response) => {
           console.log(response.data);
 
           toast({
-            message: "Habit created.",
+            message: "Habit log created.",
             type: "is-info",
             dismissible: true,
             pauseOnHover: true,
@@ -220,7 +226,7 @@ export default {
             position: "bottom-right",
           });
 
-          this.$router.push("/habit");
+          this.$router.push("/logs");
         })
         .catch((error) => {
           console.log(error);

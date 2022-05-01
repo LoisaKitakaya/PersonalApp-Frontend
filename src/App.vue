@@ -118,6 +118,10 @@ body {
 
 $card-background-color: hsl(0, 0%, 100%);
 
+.active {
+  background-color: #3498db3f !important;
+}
+
 .app-window {
   display: flex;
   height: 600px;
