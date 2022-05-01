@@ -6,6 +6,6 @@ import store from './store'
 import axios from 'axios'
 
 // default axios url
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = "https://personalapp-backend.herokuapp.com";
 
 createApp(App).use(store).use(router).mount('#app')
