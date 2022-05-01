@@ -24,7 +24,7 @@
           <a
             href="#"
             @click="logout"
-            class="button has-text-dark is-warning is-fullwidth"
+            class="button has-text-dark is-warning is-fullwidth logout-redirect"
             v-if="$store.state.isAuthenticated"
             >Logout</a
           >
@@ -147,6 +147,7 @@
 <script>
 import axios from "axios";
 import { toast } from "bulma-toast";
+import $ from "jquery";
 
 export default {
   name: "HabitTrackerAppDetailView",
@@ -161,6 +162,39 @@ export default {
   },
   created() {
     this.getHabitLog();
+
+    $(document).ready(() => {
+      //
+      let loginRedirect = $(".login-redirect");
+      let logoutRedirect = $(".logout-redirect");
+
+      //
+      let homeTab = $("#home");
+      let todoTab = $("#todo");
+      let habitTab = $("#habit");
+      let aboutTab = $("#about");
+      let signupTab = $("#signup");
+      let loginTab = $("#login");
+
+      //
+      loginRedirect.click(() => {
+        homeTab.removeClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.addClass("is-active");
+      });
+
+      logoutRedirect.click(() => {
+        homeTab.addClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.removeClass("is-active");
+      });
+    });
   },
   methods: {
     openModal() {

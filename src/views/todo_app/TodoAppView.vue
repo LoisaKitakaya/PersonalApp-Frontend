@@ -58,7 +58,7 @@
           <a
             href="#"
             @click="logout"
-            class="button has-text-dark is-warning is-fullwidth"
+            class="button has-text-dark is-warning is-fullwidth logout-redirect"
             v-if="$store.state.isAuthenticated"
             >Logout</a
           >
@@ -207,8 +207,9 @@ export default {
 
       //
       let loginRedirect = $(".login-redirect");
+      let logoutRedirect = $(".logout-redirect");
 
-      // 
+      //
       let homeTab = $("#home");
       let todoTab = $("#todo");
       let habitTab = $("#habit");
@@ -224,6 +225,15 @@ export default {
         aboutTab.removeClass("is-active");
         signupTab.removeClass("is-active");
         loginTab.addClass("is-active");
+      });
+
+      logoutRedirect.click(() => {
+        homeTab.addClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
+        loginTab.removeClass("is-active");
       });
 
       //

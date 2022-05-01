@@ -28,7 +28,7 @@
         <i class="bi bi-calendar2-week"></i>
       </p>
       <p class="is-size-4">
-        Habit Tracker App is a wonderful application if you want to start a new
+        Habit Tracker App is application if you want to start a new
         habit and track your progress. It is a good place to start for personal
         development.
         <router-link
