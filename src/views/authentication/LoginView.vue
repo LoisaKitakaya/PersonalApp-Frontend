@@ -37,7 +37,7 @@
       <br />
       <div class="field">
         <div class="control form-button">
-          <button type="submit" class="button is-success">Login</button>
+          <button type="submit" class="button is-success home-redirect">Login</button>
         </div>
       </div>
     </form>
@@ -133,6 +133,7 @@ export default {
     $(document).ready(() => {
       //
       let loginRedirect = $(".signup-redirect");
+      let homeRedirect = $('.home-redirect');
 
       //
       let homeTab = $("#home");
@@ -149,6 +150,15 @@ export default {
         habitTab.removeClass("is-active");
         aboutTab.removeClass("is-active");
         signupTab.addClass("is-active");
+        loginTab.removeClass("is-active");
+      });
+
+      homeRedirect.click(() => {
+        homeTab.addClass("is-active");
+        todoTab.removeClass("is-active");
+        habitTab.removeClass("is-active");
+        aboutTab.removeClass("is-active");
+        signupTab.removeClass("is-active");
         loginTab.removeClass("is-active");
       });
     });

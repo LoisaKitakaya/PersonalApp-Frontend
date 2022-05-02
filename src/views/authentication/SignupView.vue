@@ -49,7 +49,7 @@
       <br />
       <div class="field">
         <div class="control form-button">
-          <button type="submit" class="button is-success">Submit</button>
+          <button type="submit" class="button is-success login-redirect">Submit</button>
         </div>
       </div>
     </form>
